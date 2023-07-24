@@ -79,3 +79,4 @@ training_data/tmQM_rev_neutral/20-train.lmdb filter=lfs diff=lfs merge=lfs -text
 training_data/tmQM_rev_neutral/40-test.lmdb filter=lfs diff=lfs merge=lfs -text
 training_data/tmQM_rev_neutral/40-train.lmdb filter=lfs diff=lfs merge=lfs -text
 training_data/tmQM_rev_neutral/80-test.lmdb filter=lfs diff=lfs merge=lfs -text
+oc20-pretrained/80-gemnet-oc20preds.pt filter=lfs diff=lfs merge=lfs -text
