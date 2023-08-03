@@ -22,7 +22,7 @@ test_frac = 0.4
 val_cutoff = round(val_frac*len(dataset))
 test_cutoff = round(test_frac*len(dataset)) 
 
-used_indexes = []
+used_indexes = [] #used to track which structures are already in a dataset
 
 #writing val dataset
 db2 = lmdb.open(

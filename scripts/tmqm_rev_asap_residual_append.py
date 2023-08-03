@@ -6,8 +6,8 @@ import sys
 sys.path.append('~/ocp')
 from ocpmodels.datasets.lmdb_dataset import LmdbDataset
 
-#read the trajectory file containing the tmqm++ data
-traj = Trajectory('../all_data/tmQM_rev/tmQM++.traj')
+#read the trajectory file containing the tmqm_rev data
+traj = Trajectory('../all_data/tmQM_rev/tmQM_rev.traj')
 
 #read the predictions npz from the model
 dataset = LmdbDataset({"src":"../training_data/tmQM_rev/80-test.lmdb"})
@@ -17,7 +17,6 @@ def append_predictions(predictions, test):
     print("Appending predictions")
     pred_dict = {}
     for i in trange(len(predictions['ids'])):
-        #if int(predictions['ids'][i]) in pred_dict: print(f"id included twice, id = {int(predictions['ids'][i])}")
         pred_dict[int(predictions['ids'][i])] = predictions['energy'][i]
     if len(pred_dict) != len(test): print("Predictions and Test data do not have the same number of elements")
     new_dataset = []

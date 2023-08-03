@@ -42,6 +42,7 @@ uncorrected_targets = []
 uncorrected_predictions = []
 AE_per_atom = []
 
+#for each structure, calculate the residuals
 for structure in pred_dataset:
     uncorrected_targets.append(structure.y_relaxed)
     uncorrected_predictions.append(structure.predicted_target)
@@ -55,6 +56,7 @@ for structure in pred_dataset:
 x = np.array(uncorrected_targets)
 y = np.array(uncorrected_predictions)
 
+#set up the plot
 lims = [np.min(x)*1.2, np.max(x)*1.2]
 grid = sns.jointplot(x=x, y=y, kind='hex', bins='log', xlim=lims, ylim=lims)
 ax = grid.ax_joint
@@ -64,9 +66,11 @@ _ = ax.plot(lims, lims, '--')
 _ = ax.set_xlabel('Targets (Electronic Energy, Hartrees)')
 _ = ax.set_ylabel('Predictions (Electronic Energy, Hartrees)')
 
+#make a colorbar
 cbar_ax = grid.fig.add_axes([1.05, 0.2, .05, .4])  # x, y, width, height
 plt.colorbar(cax=cbar_ax)
 
+#calculate summary metrics
 mae_peratom = np.mean(np.array(AE_per_atom))
 mae = mean_absolute_error(x, y)
 rmse = np.sqrt(mean_squared_error(x, y))
@@ -120,4 +124,5 @@ _ = ax.text(x=lims[0], y=lims[1], s=text,
             verticalalignment='top',
             fontsize=12)
 
+#save the parity plot
 plt.savefig('../visuals/tmQM_neutral/80-gemnet-testset.png', bbox_inches='tight', dpi=300)

@@ -2,7 +2,7 @@
 
 In order to use the models to predict, one needs to create an LMDB of their data, which can be done from an Atoms object in a very similar way as was shown in `tmQM_rev Preprocessing.md` (specifically the method shown in an `*_lmdb_creation.py` script). Then, one runs a model with a checkpoint, but replaces the test data with the data of interest, and then pulls the predictions from that. This is done by creating a new config file (or modifying an existing one), replacing the third `src` under the `dataset` header with one's data of interest, and then running the following command:
 
-`python main.py --mode predict --config-yml /home/jovyan/tmQM_rev/configs/.../config.yml --checkpoint /home/jovyan/tmQM_rev/trained_checkpoints/.../checkpoint.pt`
+`python main.py --mode predict --config-yml ../tmQM_rev/configs/.../config.yml --checkpoint ../tmQM_rev/trained_checkpoints/.../checkpoint.pt`
 
 Where the checkpoint is whatever checkpoint one wants to use from the `trained_checkpoints` directory. New training data could be used in a similar way by replacing the first `src`, and validation data by replacing the second, but these would only have an effect if the mode were train, since predicting only provides predictions for the given test set.
 

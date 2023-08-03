@@ -1,5 +1,4 @@
 #from a dataset, reference corrects by creating a matrix of #structures x #unique elements and linearly regressing to guess contribution by individual atoms.  
-#dataset must be in order and have SIDs ranging from 0 to the length of the dataset in order for this to be easily revertible
 
 import sys
 sys.path.append("~/ocp/")
@@ -61,60 +60,11 @@ def target_correction(coeff_matrix, target_references, dataset):
         new_dataset.append(data)
     return new_dataset
 
-#to visualize the changes in the target relative to the target references
+#calculate the required matrices
 elem_list = elem_present(dataset)
 coeff_matrix = coeff_matrix_func(elem_list, dataset)
 target_references = target_references(coeff_matrix, dataset)
 corrected_dataset = target_correction(coeff_matrix, target_references, dataset)
-
-'''
-#check an example structure to see if behavior is as expected
-print("elem list")
-print(elem_list)
-print("=======================")
-print("target references")
-print(target_references)
-print("=======================")
-print("structure, corrected")
-print(corrected_dataset[0])
-print("=======================")
-print("structure, raw")
-print(dataset[0])
-print("=======================")
-print("structure elements")
-print(coeff_matrix[0, :])
-'''
-
-'''
-#checking the target extrema in each dataset
-min_original_target = 5000
-for structure in dataset:
-    if structure.y_relaxed < min_original_target:
-        min_original_target = structure.y_relaxed
-        id = structure.sid
-print(f"Minimum Target in Original Datasest is {min_original_target}, at sid {id}")
-
-max_original_target = -5000
-for structure in dataset:
-    if structure.y_relaxed > max_original_target:
-        max_original_target = structure.y_relaxed
-        id = structure.sid
-print(f"Maximum Target in Original Datasest is {max_original_target}, at sid {id}")
-
-min_corrected_target = 5000
-for structure in corrected_dataset:
-    if structure.y_relaxed < min_corrected_target:
-        min_corrected_target = structure.y_relaxed
-        id = structure.sid
-print(f"Minimum Target in Corrected Dataset is {min_corrected_target}, at sid {id}")
-
-max_corrected_target = -5000
-for structure in corrected_dataset:
-    if structure.y_relaxed > max_corrected_target:
-        max_corrected_target = structure.y_relaxed
-        id = structure.sid
-print(f"Maximum Target in Corrected Dataset is {max_corrected_target}, at sid {id}")
-'''
 
 print("Writing Matrices to an npz:")
 np.savez("../reference_correction/tmqm_rev_elec_e_corrections.npz", elem_list=elem_list, coeff_matrix=coeff_matrix, target_references=target_references)
@@ -133,7 +83,6 @@ plt.figure(1)
 plt.hist(original_targets, bins=100)
 plt.xlabel("Electronic Energy (Hartrees)")
 plt.ylabel("Count")
-#plt.title("Distribution of Energies in tmQM++, Unaltered")
 plt.savefig("../visuals/Energy Distributions/tmqm_rev-uncorrected.png", dpi=300)
 
 
@@ -145,7 +94,6 @@ plt.figure(2)
 plt.hist(modified_targets,bins=100)
 plt.xlabel("Electronic Energy (Hartrees, Corrected)")
 plt.ylabel("Count")
-#plt.title("Distribution of Energies in tmQM++, Corrected")
 plt.savefig("../visuals/Energy Distributions/tmqm_rev-corrected.png", dpi=300)
 
 #write an LMDB with the reference corrected energies as targets

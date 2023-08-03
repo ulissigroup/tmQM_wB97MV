@@ -3,11 +3,11 @@ Once the preprocessing shown in the `tmQM_rev Preprocessing.md` file is finished
 
 If one has already installed OCP and performed the necessary environment setup, training OCP models from the command line is as simple as navigating to the OCP folder (default name `ocp`), and running the following command:
 
-`python main.py --mode train --config-yml /home/jovyan/tmQM_rev/configs/.../config.yml`
+`python main.py --mode train --config-yml ../tmQM_rev/configs/.../config.yml`
 
 Where one replaces the path to the YML file with whatever path is relevant, in this case, the YML files used can be found under the `configs` folder. It is also often helpful to include a `--identifier` flag to identify the run. The model will then train, and the files that are most relevant are the checkpoint of the trained model, which can be found under `ocp/checkpoints`, and the results, which are written as an `npz` file under `ocp/results`. It is noted that the results file, named `is2re_predictions`, is the prediction of the model on the test set using the weights from the last epoch. To get predictions using the best epoch (lowest validation MAE), use the command:
 
-`python main.py --mode predict --config-yml /home/jovyan/tmQM_rev/configs/.../config.yml --checkpoint /home/jovyan/ocp/checkpoints/.../best_checkpoint.pt`
+`python main.py --mode predict --config-yml ../tmQM_rev/configs/.../config.yml --checkpoint ../ocp/checkpoints/.../best_checkpoint.pt`
 
 Where the checkpoint is `best_checkpoint.pt` from the `ocp/checkpoints` directory, and the config is exactly the same as used for training.
 
@@ -19,7 +19,7 @@ Instead of training models from scratch, one can also just use the pretrained mo
 
 To use a pretrained model from this work, one used the checkpoints found in the `trained_checkpoints` folder. To use these to predict the energies of structures in the test set, use:
 
-`python main.py --mode predict --config-yml /home/jovyan/tmQM_rev/configs/.../config.yml --checkpoint /home/jovyan/tmQM_rev/trained_checkpoints/.../checkpoint.pt`
+`python main.py --mode predict --config-yml ../tmQM_rev/configs/.../config.yml --checkpoint ../tmQM_rev/trained_checkpoints/.../checkpoint.pt`
 
 Where the checkpoint is whichever pretrained model one wants to use. To do a finetuning run, one would use the same command as above, except replace the config with whatever config they wanted to use (e.g. lowering the learning rate and training on different training/validation data), and set the mode to train. More sophisticated finetuning runs could also be done. To do predictions on other datasets, see the `Using Models to Predict.md` file. Starting from the models trained on OC20 is also possible, by using the publicly available checkpoints on the OCP repo.
 
