@@ -1,12 +1,12 @@
 trainer: energy
 
 dataset:
-  - src: /home/jovyan/tmQM_rev/training_data/tmQM_rev_neutral/20-train.lmdb
+  - src: ../tmQM_rev/training_data/tmQM_rev_neutral/20-train.lmdb
     normalize_labels: True
     target_mean: -0.000000000000658806599106839
     target_std: 0.09079713381376797
-  - src: /home/jovyan/tmQM_rev/training_data/tmQM_rev_neutral/20-val.lmdb
-  - src: /home/jovyan/tmQM_rev/training_data/tmQM_rev_neutral/20-test.lmdb
+  - src: ../tmQM_rev/training_data/tmQM_rev_neutral/20-val.lmdb
+  - src: ../tmQM_rev/training_data/tmQM_rev_neutral/20-test.lmdb
 
 logger: wandb
 
