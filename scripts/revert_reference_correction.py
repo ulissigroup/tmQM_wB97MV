@@ -9,13 +9,13 @@ from tqdm import trange
 import numpy as np
 
 #test dataset (reference corrected)
-test = SinglePointLmdbDataset({"src": "../training_data/tmQM_rev/80-test.lmdb"})
+test = SinglePointLmdbDataset({"src": "../training_data/tmQM_wB97MV/80-test.lmdb"})
 
 #predictions file from model
-predictions = np.load("../predictions/tmQM_rev/80-gemnet.npz")
+predictions = np.load("../predictions/tmQM_wB97MV/80-gemnet.npz")
 
 #npz for linreg corrections
-corrections = np.load("../reference_correction/tmqm_rev_elec_e_corrections.npz")
+corrections = np.load("../reference_correction/tmqm_wB97MV_elec_e_corrections.npz")
 
 #function to make the coefficient matrix for the test set
 def coeff_matrix_func(elem_list, dataset):
@@ -75,7 +75,7 @@ corrected_predictions = target_reversion(coeff_matrix, target_references, pred_d
 
 #write LMDB with the reverted predictions
 db = lmdb.open(
-    "../predictions/tmQM_rev/80-gemnet.lmdb",
+    "../predictions/tmQM_wB97MV/80-gemnet.lmdb",
     map_size=1099511627776 * 2,
     subdir=False,
     meminit=False,

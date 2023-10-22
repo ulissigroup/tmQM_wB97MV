@@ -1,12 +1,12 @@
 trainer: energy
 
 dataset:
-  - src: ../tmQM_rev/training_data/tmQM/20-train.lmdb 
+  - src: ../tmQM_wB97MV/training_data/tmQM/20-train.lmdb 
     normalize_labels: True
     target_mean: -0.0000000000007721791308318971
     target_std: 0.1262288707145667 
-  - src: ../tmQM_rev/training_data/tmQM/20-val.lmdb 
-  - src: ../tmQM_rev/training_data/tmQM/20-test.lmdb
+  - src: ../tmQM_wB97MV/training_data/tmQM/20-val.lmdb 
+  - src: ../tmQM_wB97MV/training_data/tmQM/20-test.lmdb
 
 logger: wandb
 

@@ -9,7 +9,7 @@ from tqdm import tqdm, trange
 import numpy as np
 
 #read dataset you want to reference correct
-dataset = LmdbDataset({"src": "../all_data/tmQM_rev/tmqm_rev_elec_e.lmdb"})
+dataset = LmdbDataset({"src": "../all_data/tmQM_wB97MV/tmqm_wB97MV_elec_e.lmdb"})
 
 #function to find what elements are present in the dataset
 def elem_present(dataset):
@@ -67,7 +67,7 @@ target_references = target_references(coeff_matrix, dataset)
 corrected_dataset = target_correction(coeff_matrix, target_references, dataset)
 
 print("Writing Matrices to an npz:")
-np.savez("../reference_correction/tmqm_rev_elec_e_corrections.npz", elem_list=elem_list, coeff_matrix=coeff_matrix, target_references=target_references)
+np.savez("../reference_correction/tmqm_wB97MV_elec_e_corrections.npz", elem_list=elem_list, coeff_matrix=coeff_matrix, target_references=target_references)
 print("Done!")
 
 #matplotlib visualization
@@ -83,7 +83,7 @@ plt.figure(1)
 plt.hist(original_targets, bins=100)
 plt.xlabel("Electronic Energy (Hartrees)")
 plt.ylabel("Count")
-plt.savefig("../visuals/Energy Distributions/tmqm_rev-uncorrected.png", dpi=300)
+plt.savefig("../visuals/Energy Distributions/tmqm_wB97MV-uncorrected.png", dpi=300)
 
 
 #modified dataset visualization
@@ -94,11 +94,11 @@ plt.figure(2)
 plt.hist(modified_targets,bins=100)
 plt.xlabel("Electronic Energy (Hartrees, Corrected)")
 plt.ylabel("Count")
-plt.savefig("../visuals/Energy Distributions/tmqm_rev-corrected.png", dpi=300)
+plt.savefig("../visuals/Energy Distributions/tmqm_wB97MV-corrected.png", dpi=300)
 
 #write an LMDB with the reference corrected energies as targets
 db = lmdb.open(
-    "../all_data/tmQM_rev/tmqm_rev_elec_e_reference_corrected.lmdb",
+    "../all_data/tmQM_wB97MV/tmqm_wB97MV_elec_e_reference_corrected.lmdb",
     map_size=1099511627776 * 2,
     subdir=False,
     meminit=False,
